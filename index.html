@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Banner Designs | Premium Portfolio</title>
+    <style>
+        /* --- Base Styles --- */
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #0f172a; 
+            color: #ffffff; 
+            margin: 0; 
+            padding: 0; 
+            animation: fadeInPage 1.2s ease-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+        /* --- RGB Border Animation (सिर्फ ऊपर वाले स्लाइडर के लिए) --- */
+        .animated-border {
+            position: relative;
+            background: #1e293b; 
+            border-radius: 20px;
+            z-index: 0;
+            overflow: hidden;
+            padding: 3px;
+            margin-bottom: 25px;
+        }
+
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            left: -50%; top: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(#ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            animation: rotateRGB 8s linear infinite;
+        }
+
+        .animated-border::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            left: 4px; top: 4px;
+            width: calc(100% - 8px);
+            height: calc(100% - 8px);
+            background: #1e293b;
+            border-radius: 16px;
+        }
+
+        @keyframes rotateRGB { 100% { transform: rotate(1turn); } }
+
+        /* --- Mega Top Slider --- */
+        .mega-slider-container {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .slider img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* --- Category Grid --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .static-card {
+            text-align: center;
+        }
+
+        .section-heading {
+            text-align: center;
+            color: #cbd5e1;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        /* 1. Folders के लिए स्टाइल (1:1 Ratio / Square) */
+        .img-box-folder {
+            aspect-ratio: 1 / 1; 
+            width: 100%;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        .img-box-folder img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: 0.3s; 
+            opacity: 0.6; 
+        }
+        .img-box-folder:hover img { transform: scale(1.1); opacity: 1; }
+
+        /* 2. Sub-gallery के लिए स्टाइल (ओरिजिनल रेशियो, कटेगा नहीं) */
+        .img-box-ratio {
+            height: auto;
+            background: transparent;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .img-box-ratio img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 15px;
+        }
+        .img-box-ratio:hover { transform: scale(1.05); }
+
+        /* Folder Label Overlay */
+        .folder-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #00ffd5;
+            pointer-events: none;
+            border: 1px solid #00ffd5;
+        }
+
+        /* --- Sub-Gallery (Inside Folder) --- */
+        .sub-gallery {
+            display: none;
+            animation: fadeInPage 0.5s ease-in-out;
+        }
+
+        .back-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-btn:hover { background: #1e3c72; }
+
+        /* --- Overlay & Forms --- */
+        #imageOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; }
+        #fullImg { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid #fff; }
+        .close-btn { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; cursor: pointer; }
+
+        .order-card { background: #1e293b; padding: 25px 20px; text-align: left; border-radius: 20px; margin-bottom: 25px; margin-top: 40px;}
+        .form-group { margin-bottom: 15px; }
+        .form-group label { font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border-radius: 10px; border: none; background: #0f172a; color: #fff; box-sizing: border-box; }
+        
+        .submit-btn { 
+            background: linear-gradient(45deg, #ff0000, #002bff); 
+            color: white; border: none; padding: 15px; width: 100%; border-radius: 50px; font-weight: bold; cursor: pointer;
+            margin-top: 10px; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
+        @media (max-width: 480px) { .showcase-grid { grid-template-columns: 1fr; } .mega-slider-container { height: 180px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1> PRO BANNER DESIGNS</h1>
+        <p>High-Quality Graphics Designs</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 style="text-align: center; font-size: 20px;">🔥 OUR BEST DESIGNS 🔥</h2>
+        
+        <div class="animated-border">
+            <div class="mega-slider-container">
+                <div class="slider" id="mainSlider">
+                    <img src="rty.png" onclick="openFullImage(this.src)">
+                    <img src="123.png" onclick="openFullImage(this.src)">
+                    <img src="cc.png" onclick="openFullImage(this.src)">
+                    <img src="420.png" onclick="openFullImage(this.src)">
+                    <img src="aa.png" onclick="openFullImage(this.src)">
+                    <img src="tyj.png" onclick="openFullImage(this.src)">   
+                    
+                    <img src="fff.png" onclick="openFullImage(this.src)">
+                    
+                </div>
+            </div>
+        </div>                                                
+
+        <div id="mainContentArea">
+            
+            <h2 style="text-align: center; font-size: 20px; margin-top: 40px;">OUR SERVICES (हमारी सेवाएँ)👇🏻</h2>
+            
+            <div class="showcase-grid">
+                <div class="static-card">
+                    <div class="img-box-folder" onclick="openFolder('folder-invite')">
+                        <div class="folder-label">📁 Open Folder</div>
+                        <img src="aa.png" alt="Cover">
+                    </div>
+                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Invitation Cards(निमंत्रण पत्र)</p>
+                </div>
+
+                <div class="static-card">
+                    <div class="img-box-folder" onclick="openFolder('folder-banner')">
+                        <div class="folder-label">📁 Open Folder</div>
+                        <img src="cc.png">
+                    </div>
+                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Wall Banners(दीवार के बैनर)</p>
+                </div>
+            </div>
+            
+        </div> <div id="folder-invite" class="sub-gallery">
+            <button class="back-btn" onclick="closeFolder()">⬅ Back to Main Menu</button>
+            <h3 style="color: #00ffd5; text-align: center;">📂 Invitation Cards</h3>
+            <div class="showcase-grid">
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('aa.png')">
+                        <img src="aa.png"> 
+                    </div>
+                    <p>Wedding Card(शादी का निमंत्रणपत्र)</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('tyj.png')">
+                        <img src="tyj.png">
+                    </div>
+                    <p> Wedding Card(शादी का निमंत्रणपत्र)</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('birthday.png')">
+                        <img src="birthday.png">
+                    </div>
+                    <p>Birthday Invitation Card(जन्मदिन का निमंत्रण पत्र)</p>
+                </div> 
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('777.png')">
+                        <img src="777.png">
+                    </div>
+                    <p>Party Invitation Card(पार्टी निमंत्रण पत्र)</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('fff.png')">
+                        <img src="fff.png">
+                    </div>
+                    <p>Inauguration Card(उद्घाटन निमंत्रण पत्र)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="folder-banner" class="sub-gallery">
+            <button class="back-btn" onclick="closeFolder()">⬅ Back to Main Menu</button>
+            <h3 style="color: #00ffd5; text-align: center;">📂 Wall Banners</h3>
+            <div class="showcase-grid">
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('banner1.png')">
+                        <img src="banner1.png">
+                    </div>
+                    <p>Wall Banner</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('300.png')">
+                        <img src="300.png">
+                    </div>
+                    <p>.</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('301.png')">
+                        <img src="301.png">
+                    </div>
+                    <p>.</p>
+                </div>
+                <div class="static-card">
+                    <div class="img-box-ratio" onclick="openFullImage('302.png')">
+                        <img src="302.png">
+                    </div>
+                    <p>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-card">
+            <h2 style="text-align: center; margin-top: 0;">Apna Order Book Karein</h2>
+            <div class="form-group"><label>👤 NAAM</label><input type="text" id="custName" placeholder="Naam likhein"></div>
+            <div class="form-group"><label>📱 MOBILE (Optional)</label><input type="number" id="custPhone" placeholder="Mobile no."></div>
+            <div class="form-group"><label>📝 DETAILS</label><textarea id="custDetails" placeholder="Kya banwana hai?"></textarea></div>
+            <button class="submit-btn" onclick="sendToTelegram()">✈️ ORDER ON TELEGRAM</button>
+        </div>
+        
+        <p style="text-align: center; color: #64748b; font-size: 11px; padding-bottom: 20px;">
+            © 2026 Pro Banner Designs | Designed by Sword Yash
+        </p>
+
+    </div>
+
+    <div id="imageOverlay">
+        <span class="close-btn" onclick="closeFullImage()">&times;</span>
+        <img id="fullImg" src="">
+    </div>
+
+    <script>
+        // Mega Slider Logic
+        var slideIndex = 0;
+        function autoSlide() {
+            var slider = document.getElementById('mainSlider');
+            if (slider && slider.children.length > 0) {
+                slideIndex++;
+                if (slideIndex >= slider.children.length) {
+                    slideIndex = 0;
+                }
+                slider.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+            }
+        }
+        setInterval(autoSlide, 5000);
+
+        // Folder Logic 
+        function openFolder(folderId) {
+            var mainContent = document.getElementById('mainContentArea');
+            if(mainContent) mainContent.style.display = 'none';
+
+            var galleries = document.getElementsByClassName('sub-gallery');
+            for (var i = 0; i < galleries.length; i++) {
+                galleries[i].style.display = 'none';
+            }
+
+            var targetFolder = document.getElementById(folderId);
+            if(targetFolder) {
+                targetFolder.style.display = 'block';
+            }
+            window.scrollTo(0, 0); 
+        }
+
+        function closeFolder() {
+            var galleries = document.getElementsByClassName('sub-gallery');
+            for (var i = 0; i < galleries.length; i++) {
+                galleries[i].style.display = 'none';
+            }
+            
+            var mainContent = document.getElementById('mainContentArea');
+            if(mainContent) mainContent.style.display = 'block';
+        }
+
+        // Zoom Logic
+        function openFullImage(src) {
+            document.getElementById('fullImg').src = src; 
+            document.getElementById('imageOverlay').style.display = 'flex';
+        }
+        
+        function closeFullImage() { 
+            document.getElementById('imageOverlay').style.display = 'none'; 
+        }
+
+        // Telegram Logic
+        function sendToTelegram() {
+            var name = document.getElementById('custName').value;
+            var phone = document.getElementById('custPhone').value;
+            var details = document.getElementById('custDetails').value;
+            
+            if(name === "") { 
+                alert("Naam bharein!"); 
+                return; 
+            }
+            
+            var mobileText = phone ? phone : "Nahi diya";
+            var text = "🔥 NAYA ORDER 🔥\n👤 Naam: " + name + "\n📱 Mobile: " + mobileText + "\n📝 Details: " + details;
+            
+            window.open("https://t.me/Probannerdesigner?text=" + encodeURIComponent(text), "_blank");
+        }
+    </script>
+</body>
+</html>
