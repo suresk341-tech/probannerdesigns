@@ -30,7 +30,7 @@
 
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
 
-        /* --- RGB Border Animation (सिर्फ ऊपर वाले स्लाइडर के लिए) --- */
+        /* --- RGB Border Animation --- */
         .animated-border {
             position: relative;
             background: #1e293b; 
@@ -109,7 +109,7 @@
             padding-bottom: 10px;
         }
 
-        /* 1. Folders के लिए स्टाइल (1:1 Ratio / Square) */
+        /* Folders के लिए स्टाइल */
         .img-box-folder {
             aspect-ratio: 1 / 1; 
             width: 100%;
@@ -128,7 +128,7 @@
         }
         .img-box-folder:hover img { transform: scale(1.1); opacity: 1; }
 
-        /* 2. Sub-gallery के लिए स्टाइल (ओरिजिनल रेशियो, कटेगा नहीं) */
+        /* Sub-gallery के लिए स्टाइल */
         .img-box-ratio {
             height: auto;
             background: transparent;
@@ -224,9 +224,7 @@
                     <img src="420.png" onclick="openFullImage(this.src)">
                     <img src="aa.png" onclick="openFullImage(this.src)">
                     <img src="tyj.png" onclick="openFullImage(this.src)">   
-                    
                     <img src="fff.png" onclick="openFullImage(this.src)">
-                    
                 </div>
             </div>
         </div>                                                
@@ -253,7 +251,9 @@
                 </div>
             </div>
             
-        </div> <div id="folder-invite" class="sub-gallery">
+        </div> 
+        
+        <div id="folder-invite" class="sub-gallery">
             <button class="back-btn" onclick="closeFolder()">⬅ Back to Main Menu</button>
             <h3 style="color: #00ffd5; text-align: center;">📂 Invitation Cards</h3>
             <div class="showcase-grid">
@@ -325,8 +325,8 @@
             <h2 style="text-align: center; margin-top: 0;">Apna Order Book Karein</h2>
             <div class="form-group"><label>👤 NAME</label><input type="text" id="custName" placeholder="Enter Your Name"></div>
             <div class="form-group"><label>📱 MOBILE (Optional)</label><input type="number" id="custPhone" placeholder="Mobile no."></div>
-            <div class="form-group"><label>📝 DETAILS</label><textarea id="custDetails" placeholder="क्या बनवाना है? (Descrive your design)?"></textarea></div>
-            <button class="submit-btn" onclick="sendToTelegram()">✈️ ORDER ON TELEGRAM</button>\u003Cbutton class=\"back-btn\" onclick=\"closeFolder()\">⬅ Back to Main Menu\u003C/button>
+            <div class="form-group"><label>📝 DETAILS</label><textarea id="custDetails" placeholder="क्या बनवाना है? (Describe your design)?"></textarea></div>
+            <button class="submit-btn" onclick="sendToTelegram()">✈️ ORDER ON TELEGRAM</button>
         </div>
         
         <p style="text-align: center; color: #64748b; font-size: 11px; padding-bottom: 20px;">
@@ -355,8 +355,8 @@
         }
         setInterval(autoSlide, 5000);
 
-        // Folder Logic 
-        function openFolder(folderId) {
+        // UI View Update Logic
+        function showFolderView(folderId) {
             var mainContent = document.getElementById('mainContentArea');
             if(mainContent) mainContent.style.display = 'none';
 
@@ -372,25 +372,48 @@
             window.scrollTo(0, 0); 
         }
 
-        function closeFolder() {
+        function hideAllFolders() {
             var galleries = document.getElementsByClassName('sub-gallery');
             for (var i = 0; i < galleries.length; i++) {
                 galleries[i].style.display = 'none';
             }
-            
             var mainContent = document.getElementById('mainContentArea');
             if(mainContent) mainContent.style.display = 'block';
         }
 
-        // Zoom Logic
+        // Click Handlers (History State के साथ)
+        function openFolder(folderId) {
+            showFolderView(folderId);
+            history.pushState({ popup: folderId }, '', '#' + folderId);
+        }
+
+        function closeFolder() {
+            history.back(); // यह फ़ोन के बैक बटन जैसा ही काम करेगा 
+        }
+
         function openFullImage(src) {
             document.getElementById('fullImg').src = src; 
             document.getElementById('imageOverlay').style.display = 'flex';
+            history.pushState({ popup: 'image' }, '', '#imageview');
         }
         
         function closeFullImage() { 
-            document.getElementById('imageOverlay').style.display = 'none'; 
+            history.back(); 
         }
+
+        // 🌟 बैक बटन (Gesture) को कंट्रोल करने वाला कोड 🌟
+        window.addEventListener('popstate', function(event) {
+            // कोई भी बड़ी इमेज खुली हो तो उसे बंद कर दो
+            document.getElementById('imageOverlay').style.display = 'none';
+            
+            // अगर हम किसी फोल्डर के अंदर हैं, तो उसे दिखाओ
+            if (event.state && event.state.popup && event.state.popup !== 'image') {
+                showFolderView(event.state.popup);
+            } else {
+                // नहीं तो सब फोल्डर्स बंद करके मेन पेज (Services) दिखाओ
+                hideAllFolders();
+            }
+        });
 
         // Telegram Logic
         function sendToTelegram() {
