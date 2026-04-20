@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N9E5WRBCWE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N9E5WRBCWE');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pro Banner Designs | Premium Portfolio</title>
@@ -87,7 +96,7 @@
             cursor: pointer;
         }
 
-        /* --- Category Grid --- */
+        /* --- Grid Styles --- */
         .showcase-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -95,21 +104,9 @@
             margin-bottom: 30px;
         }
 
-        .static-card {
-            text-align: center;
-        }
+        .static-card { text-align: center; }
 
-        .section-heading {
-            text-align: center;
-            color: #cbd5e1;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 10px;
-        }
-
-        /* Folders के लिए स्टाइल */
+        /* Folders (1:1 Ratio) */
         .img-box-folder {
             aspect-ratio: 1 / 1; 
             width: 100%;
@@ -119,38 +116,12 @@
             cursor: pointer;
             position: relative;
         }
-        .img-box-folder img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: 0.3s; 
-            opacity: 0.6; 
-        }
+        .img-box-folder img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; opacity: 0.6; }
         .img-box-folder:hover img { transform: scale(1.1); opacity: 1; }
 
-        /* Sub-gallery के लिए स्टाइल */
-        .img-box-ratio {
-            height: auto;
-            background: transparent;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .img-box-ratio img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            border-radius: 15px;
-        }
-        .img-box-ratio:hover { transform: scale(1.05); }
-
-        /* Folder Label Overlay */
         .folder-label {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.8);
             padding: 8px 15px;
@@ -162,11 +133,17 @@
             border: 1px solid #00ffd5;
         }
 
-        /* --- Sub-Gallery (Inside Folder) --- */
-        .sub-gallery {
-            display: none;
-            animation: fadeInPage 0.5s ease-in-out;
+        /* Sub-gallery Styles */
+        .img-box-ratio {
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
+        .img-box-ratio img { width: 100%; height: auto; display: block; border-radius: 15px; }
+        .img-box-ratio:hover { transform: scale(1.05); }
+
+        .sub-gallery { display: none; animation: fadeInPage 0.5s ease-in-out; }
 
         .back-btn {
             background: #334155;
@@ -181,14 +158,13 @@
             align-items: center;
             gap: 5px;
         }
-        .back-btn:hover { background: #1e3c72; }
 
-        /* --- Overlay & Forms --- */
+        /* Overlay & Forms */
         #imageOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; }
         #fullImg { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid #fff; }
         .close-btn { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; cursor: pointer; }
 
-        .order-card { background: #1e293b; padding: 25px 20px; text-align: left; border-radius: 20px; margin-bottom: 25px; margin-top: 40px;}
+        .order-card { background: #1e293b; padding: 25px 20px; border-radius: 20px; margin-top: 40px; margin-bottom: 25px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { font-size: 13px; color: #cbd5e1; display: block; margin-bottom: 5px; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border-radius: 10px; border: none; background: #0f172a; color: #fff; box-sizing: border-box; }
@@ -196,11 +172,10 @@
         .submit-btn { 
             background: linear-gradient(45deg, #ff0000, #002bff); 
             color: white; border: none; padding: 15px; width: 100%; border-radius: 50px; font-weight: bold; cursor: pointer;
-            margin-top: 10px; animation: pulse 2s infinite;
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
         @media (max-width: 480px) { .showcase-grid { grid-template-columns: 1fr; } .mega-slider-container { height: 180px; } }
     </style>
 </head>
@@ -230,16 +205,14 @@
         </div>                                                
 
         <div id="mainContentArea">
-            
             <h2 style="text-align: center; font-size: 20px; margin-top: 40px;">OUR SERVICES (हमारी सेवाएँ)👇🏻</h2>
-            
             <div class="showcase-grid">
                 <div class="static-card">
                     <div class="img-box-folder" onclick="openFolder('folder-invite')">
                         <div class="folder-label">📁 Open Folder</div>
                         <img src="aa.png" alt="Cover">
                     </div>
-                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Invitation Cards(निमंत्रण पत्र)</p>
+                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Invitation Cards</p>
                 </div>
 
                 <div class="static-card">
@@ -247,46 +220,20 @@
                         <div class="folder-label">📁 Open Folder</div>
                         <img src="cc.png">
                     </div>
-                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Wall Banners(दीवार के बैनर)</p>
+                    <p style="font-weight: bold; color: #00ffd5; margin-top: 10px;">Wall Banners</p>
                 </div>
             </div>
-            
         </div> 
         
         <div id="folder-invite" class="sub-gallery">
             <button class="back-btn" onclick="closeFolder()">⬅ Back to Main Menu</button>
             <h3 style="color: #00ffd5; text-align: center;">📂 Invitation Cards</h3>
             <div class="showcase-grid">
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('aa.png')">
-                        <img src="aa.png"> 
-                    </div>
-                    <p>Wedding Card(शादी का निमंत्रणपत्र)</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('tyj.png')">
-                        <img src="tyj.png">
-                    </div>
-                    <p> Wedding Card(शादी का निमंत्रणपत्र)</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('birthday.png')">
-                        <img src="birthday.png">
-                    </div>
-                    <p>Birthday Invitation Card(जन्मदिन का निमंत्रण पत्र)</p>
-                </div> 
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('777.png')">
-                        <img src="777.png">
-                    </div>
-                    <p>Party Invitation Card(पार्टी निमंत्रण पत्र)</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('fff.png')">
-                        <img src="fff.png">
-                    </div>
-                    <p>Inauguration Card(उद्घाटन निमंत्रण पत्र)</p>
-                </div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('aa.png')"><img src="aa.png"></div><p>Wedding Card</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('tyj.png')"><img src="tyj.png"></div><p>Wedding Card</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('birthday.png')"><img src="birthday.png"></div><p>Birthday Card</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('777.png')"><img src="777.png"></div><p>Party Card</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('fff.png')"><img src="fff.png"></div><p>Inauguration Card</p></div>
             </div>
         </div>
 
@@ -294,30 +241,10 @@
             <button class="back-btn" onclick="closeFolder()">⬅ Back to Main Menu</button>
             <h3 style="color: #00ffd5; text-align: center;">📂 Wall Banners</h3>
             <div class="showcase-grid">
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('banner1.png')">
-                        <img src="banner1.png">
-                    </div>
-                    <p>Wall Banner</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('300.png')">
-                        <img src="300.png">
-                    </div>
-                    <p>.</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('301.png')">
-                        <img src="301.png">
-                    </div>
-                    <p>.</p>
-                </div>
-                <div class="static-card">
-                    <div class="img-box-ratio" onclick="openFullImage('302.png')">
-                        <img src="302.png">
-                    </div>
-                    <p>.</p>
-                </div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('banner1.png')"><img src="banner1.png"></div><p>Wall Banner</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('300.png')"><img src="300.png"></div><p>Banner 300</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('301.png')"><img src="301.png"></div><p>Banner 301</p></div>
+                <div class="static-card"><div class="img-box-ratio" onclick="openFullImage('302.png')"><img src="302.png"></div><p>Banner 302</p></div>
             </div>
         </div>
 
@@ -325,14 +252,17 @@
             <h2 style="text-align: center; margin-top: 0;">Apna Order Book Karein</h2>
             <div class="form-group"><label>👤 NAME</label><input type="text" id="custName" placeholder="Enter Your Name"></div>
             <div class="form-group"><label>📱 MOBILE (Optional)</label><input type="number" id="custPhone" placeholder="Mobile no."></div>
-            <div class="form-group"><label>📝 DETAILS</label><textarea id="custDetails" placeholder="क्या बनवाना है? (Describe your design)?"></textarea></div>
+            <div class="form-group"><label>📝 DETAILS</label><textarea id="custDetails" placeholder="Kya banwana hai?"></textarea></div>
             <button class="submit-btn" onclick="sendToTelegram()">✈️ ORDER ON TELEGRAM</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 15px; margin-bottom: 20px;">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fsuresk341-tech.github.io%2Fprobannerdesigns%2F&count_bg=%23002bff&title_bg=%231e293b&title=Total+Visitors&edge_flat=false" alt="Visitors Counter">
         </div>
         
         <p style="text-align: center; color: #64748b; font-size: 11px; padding-bottom: 20px;">
             © 2026 Pro Banner Designs | Designed by pro designers
         </p>
-
     </div>
 
     <div id="imageOverlay">
@@ -341,55 +271,42 @@
     </div>
 
     <script>
-        // Mega Slider Logic
+        // Slider Logic
         var slideIndex = 0;
         function autoSlide() {
             var slider = document.getElementById('mainSlider');
             if (slider && slider.children.length > 0) {
                 slideIndex++;
-                if (slideIndex >= slider.children.length) {
-                    slideIndex = 0;
-                }
+                if (slideIndex >= slider.children.length) slideIndex = 0;
                 slider.style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
             }
         }
         setInterval(autoSlide, 5000);
 
-        // UI View Update Logic
+        // View Management
         function showFolderView(folderId) {
-            var mainContent = document.getElementById('mainContentArea');
-            if(mainContent) mainContent.style.display = 'none';
-
+            document.getElementById('mainContentArea').style.display = 'none';
             var galleries = document.getElementsByClassName('sub-gallery');
-            for (var i = 0; i < galleries.length; i++) {
-                galleries[i].style.display = 'none';
-            }
-
-            var targetFolder = document.getElementById(folderId);
-            if(targetFolder) {
-                targetFolder.style.display = 'block';
-            }
+            for (var i = 0; i < galleries.length; i++) galleries[i].style.display = 'none';
+            var target = document.getElementById(folderId);
+            if(target) target.style.display = 'block';
             window.scrollTo(0, 0); 
         }
 
         function hideAllFolders() {
             var galleries = document.getElementsByClassName('sub-gallery');
-            for (var i = 0; i < galleries.length; i++) {
-                galleries[i].style.display = 'none';
-            }
-            var mainContent = document.getElementById('mainContentArea');
-            if(mainContent) mainContent.style.display = 'block';
+            for (var i = 0; i < galleries.length; i++) galleries[i].style.display = 'none';
+            document.getElementById('mainContentArea').style.display = 'block';
+            document.getElementById('imageOverlay').style.display = 'none';
         }
 
-        // Click Handlers (History State के साथ)
+        // Click Logic with History (Fixes Back Button Glitch)
         function openFolder(folderId) {
             showFolderView(folderId);
             history.pushState({ popup: folderId }, '', '#' + folderId);
         }
 
-        function closeFolder() {
-            history.back(); // यह फ़ोन के बैक बटन जैसा ही काम करेगा 
-        }
+        function closeFolder() { history.back(); }
 
         function openFullImage(src) {
             document.getElementById('fullImg').src = src; 
@@ -397,20 +314,14 @@
             history.pushState({ popup: 'image' }, '', '#imageview');
         }
         
-        function closeFullImage() { 
-            history.back(); 
-        }
+        function closeFullImage() { history.back(); }
 
-        // 🌟 बैक बटन (Gesture) को कंट्रोल करने वाला कोड 🌟
+        // Back Button Listener
         window.addEventListener('popstate', function(event) {
-            // कोई भी बड़ी इमेज खुली हो तो उसे बंद कर दो
             document.getElementById('imageOverlay').style.display = 'none';
-            
-            // अगर हम किसी फोल्डर के अंदर हैं, तो उसे दिखाओ
             if (event.state && event.state.popup && event.state.popup !== 'image') {
                 showFolderView(event.state.popup);
             } else {
-                // नहीं तो सब फोल्डर्स बंद करके मेन पेज (Services) दिखाओ
                 hideAllFolders();
             }
         });
@@ -420,17 +331,12 @@
             var name = document.getElementById('custName').value;
             var phone = document.getElementById('custPhone').value;
             var details = document.getElementById('custDetails').value;
-            
-            if(name === "") { 
-                alert("Naam bharein!"); 
-                return; 
-            }
-            
+            if(name === "") { alert("Naam bharein!"); return; }
             var mobileText = phone ? phone : "Nahi diya";
             var text = "🔥 NAYA ORDER 🔥\n👤 Naam: " + name + "\n📱 Mobile: " + mobileText + "\n📝 Details: " + details;
-            
             window.open("https://t.me/Probannerdesigner?text=" + encodeURIComponent(text), "_blank");
         }
     </script>
 </body>
 </html>
+
